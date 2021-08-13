@@ -1,32 +1,23 @@
-const db = require('../../data/dbConfig')
+const express = require('express')
+const Resources = require('./model')
+const router = express.Router()
 
-async function getProject() {
-	const projects = []
-	const results = await db('projects as p')
-		.select(
-			'p.project_id',
-			'p.project_name',
-			'p.project_description',
-			'p.project_completed'
-		)
-
-	results.forEach(result => {
-		projects.push({
-			project_id: result.project_id,
-			project_name: result.project_name,
-			project_description: result.project_description,
-			project_completed: Boolean(result.project_completed)
+router.get('/', (req, res, next) => {
+	Resources.getResources()
+		.then(resources => {
+			res.json(resources)
 		})
-	})
+		.catch(next)
+})
 
-	return projects
-}
+router.post('/', (req, res, next) => {
+	const resource = req.body
 
-function addProject(project) {
-	return db('projects').insert(project)
-}
+	Resources.addResource(resource)
+		.then(resource => {
+			res.status(201).json(resource)
+		})
+		.catch(next)
+})
 
-module.exports = {
-	getProject,
-	addProject
-}
+module.exports = router 

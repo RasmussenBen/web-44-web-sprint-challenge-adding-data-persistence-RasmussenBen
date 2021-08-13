@@ -12,15 +12,15 @@ server.use('/api/resources', resourcesRouter)
 server.use('/api/tasks', tasksRouter)
 
 server.use('*', (req, res, next) => {
-    next({status: 404,
-        message: 'Page not found'
-    })
+  next({status: 404,
+    message: 'Page not found'
+  })
 })
 
 server.use((err, req, res, next) => {
-    res.status(err.status || 500).json({
-        message: err.message
-    })
+  res.status(err.status || 500).json({
+    message: err.message
+  })
 })
 
 module.exports = server
