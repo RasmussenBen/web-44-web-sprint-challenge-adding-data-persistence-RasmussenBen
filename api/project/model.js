@@ -1,7 +1,7 @@
 const db = require('../../data/dbConfig')
 
 async function getProject() {
-	const projects = []
+	const specificProject = []
 	const results = await db('projects as p')
 		.select(
 			'p.project_id',
@@ -11,7 +11,7 @@ async function getProject() {
 		)
 
 	results.forEach(result => {
-		projects.push({
+		specificProject.push({
 			project_id: result.project_id,
 			project_name: result.project_name,
 			project_description: result.project_description,
@@ -19,11 +19,11 @@ async function getProject() {
 		})
 	})
 
-	return projects
+	return specificProject
 }
 
-function addProject(project) {
-	return db('projects').insert(project)
+function addProject(newProject) {
+	return db('projects').insert(newProject)
 }
 
 module.exports = {

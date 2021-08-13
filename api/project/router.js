@@ -11,11 +11,11 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-	const project = req.body
+	const newProject = req.body
 
-	Projects.addProject(project)
-		.then(project => {
-			res.status(201).json(project)
+	Projects.addProject(newProject)
+		.then(newProject => {
+			res.status(201).json(newProject)
 		})
 		.catch(next)
 })

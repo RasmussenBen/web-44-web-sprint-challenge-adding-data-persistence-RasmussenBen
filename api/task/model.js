@@ -1,7 +1,7 @@
 const db = require('../../data/dbConfig')
 
 async function getTasks() {
-	const tasks = []
+	const specificTask = []
 	const results = await db('tasks as t')
 		.leftJoin('projects as p', 'p.project_id', 't.project_id')
 		.select(
@@ -14,7 +14,7 @@ async function getTasks() {
 		)
 
 	results.forEach(result => {
-		tasks.push({
+		specificTask.push({
 			task_id: result.task_id,
 			task_description: result.task_description,
 			task_notes: result.task_notes,
@@ -24,11 +24,11 @@ async function getTasks() {
 		})
 	})
 
-	return tasks
+	return specificTask
 }
 
-function addTask(task) {
-	return db('tasks').insert(task)
+function addTask(newTask) {
+	return db('tasks').insert(newTask)
 }
 
 module.exports = {

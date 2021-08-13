@@ -4,8 +4,8 @@ function getResources() {
 	return db('resources')
 }
 
-async function addResource(resource) {
-	return db('resources').insert(resource)
+async function addResource(newResource) {
+	return db('resources').insert(newResource)
 		.then(() => {
 			return db('resources')
 			.select('resources.resource_name')
